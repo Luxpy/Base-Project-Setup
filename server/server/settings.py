@@ -46,6 +46,13 @@ INSTALLED_APPS = [
     'rest_framework_simplejwt',
     'rest_framework_simplejwt.token_blacklist',
     'corsheaders',
+    'ckeditor',
+
+    'apps.blogs',
+    'apps.news',
+    'apps.register',
+    'apps.authentication',
+    'apps.profiles',
 ]
 
 MIDDLEWARE = [
@@ -137,6 +144,11 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 
+# Base user model
+
+AUTH_USER_MODEL = 'authentication.CustomUser'
+
+
 # DRF settings
 
 REST_FRAMEWORK = {
@@ -158,7 +170,7 @@ SIMPLE_JWT = {
 # CORS headers settings
 
 CORS_ALLOWED_ORIGINS = [
-    'http:/127.0.0.1:8000',
+    'http://127.0.0.1:8000',
     'http://localhost:8080'
 ]
 
