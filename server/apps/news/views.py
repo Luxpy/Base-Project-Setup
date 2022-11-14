@@ -16,6 +16,10 @@ class NewsListAPIView(ListAPIView):
     queryset = News.objects.all()
     serializer_class = NewsListSerializer
 
+    def get_queryset(self):
+        search_query = self.kwargs["q"]
+        return News.objects.filter(title__contains=search_query) 
+
 
 class NewsRetrieveAPIView(RetrieveAPIView):
     queryset = News.objects.all()

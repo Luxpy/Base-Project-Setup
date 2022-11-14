@@ -23,10 +23,14 @@ class BlogCreateAPIView(CreateAPIView):
         serializer.save(author=_author)
 
 
-class BlosListAPIView(ListAPIView):
+class BlogListAPIView(ListAPIView):
     queryset = Blog.objects.all()
     serializer_class = BlogListSerializer
     pagination_class = BlogLimitOffsetPagination
+
+    def get_queryset(self):
+        search_query = self.kwargs["q"]
+        return Blog.objects.filter(title__contains=search_query)
 
 
 class BlogRetrieveAPIView(RetrieveAPIView):

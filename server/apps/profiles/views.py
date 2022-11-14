@@ -1,5 +1,3 @@
-from django.shortcuts import get_object_or_404
-
 from rest_framework.generics import (
     CreateAPIView, ListAPIView, RetrieveAPIView, UpdateAPIView, DestroyAPIView)
 from rest_framework.permissions import IsAuthenticated
@@ -13,6 +11,13 @@ from apps.profiles.permissions import IsProfileUser, IsExperienceOwner
 class ProfileListAPIView(ListAPIView):
     queryset = Profile.objects.all()
     serializer_class = ProfileListSerializer
+
+    def get_queryset(self):
+        search_query = self.kwargs["q"]
+        return Profile.objects.filter(
+            first_name__contains=search_query,
+            last_name__contains=search_query
+        )
 
 
 class ProfileRetrieveAPIView(RetrieveAPIView):
